@@ -1,7 +1,5 @@
 # auto-responsive-grid
 
-> Made with create-react-library
-
 [![NPM](https://img.shields.io/npm/v/auto-responsive-grid.svg)](https://www.npmjs.com/package/auto-responsive-grid) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
@@ -13,15 +11,27 @@ npm install --save auto-responsive-grid
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import {
+  GridAutoResponsiveItem,
+  GridAutoResponsiveWrapper
+} from 'auto-responsive-grid'
 
-import MyComponent from 'auto-responsive-grid'
-import 'auto-responsive-grid/dist/index.css'
-
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+export default function Page() {
+  return (
+    return (
+    <div>
+      <GridAutoResponsiveWrapper maxColumnCount={4} gap={10}>
+        {posts.map((post) => {
+          return (
+            <GridAutoResponsiveItem minWidth={200}>
+              <div>{post.title}</div>
+            </GridAutoResponsiveItem>
+          )
+        })}
+      </GridAutoResponsiveWrapper>
+    </div>
+  )
+  )
 }
 ```
 
