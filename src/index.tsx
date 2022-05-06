@@ -6,9 +6,7 @@ import React, {
   useState
 } from 'react'
 
-export function GridAutoResponsiveWrapper(
-  props: GridAutoResponsiveWrapperProps
-) {
+export function ResponsiveGridWrapper(props: ResponsiveGridWrapperProps) {
   const { maxColumnCount, minColumnCount = 1, gap = 0, children } = props
   const wrapperRef = useRef<HTMLDivElement>(null)
 
@@ -68,6 +66,7 @@ export function GridAutoResponsiveWrapper(
     maxColumnCount,
     minColumnCount,
     children,
+    style,
     gap,
     ...o
   }) => o)(props)
@@ -78,7 +77,9 @@ export function GridAutoResponsiveWrapper(
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${currentRowCount}, 1fr)`,
-        gridGap: gap + 'px'
+        gridGap: gap + 'px',
+        width: '100%',
+        ...props.style
       }}
       {...jsxAttributes}
     >
@@ -87,17 +88,19 @@ export function GridAutoResponsiveWrapper(
   )
 }
 
-export function GridAutoResponsiveItem(props: GridAutoResponsiveItemProps) {
+export function ResponsiveGridItem(props: ResponsiveGridItemProps) {
   // add min-width value to children
   const { children, minWidth } = props
   const child = React.Children.only(children)
 
-  const jsxAttributes = (({ minWidth, children, ...o }) => o)(props)
+  const jsxAttributes = (({ minWidth, children, style, ...o }) => o)(props)
 
   const singleGridElementWithMinWidth = React.cloneElement(child, {
     style: {
       minWidth: minWidth + 'px',
-      width: '100%'
+      width: '100%',
+      ...props.children.props.style,
+      ...props.style
     },
     ...jsxAttributes
   })
@@ -108,7 +111,7 @@ export function GridAutoResponsiveItem(props: GridAutoResponsiveItemProps) {
 /**
  * Think this as a grid div.
  */
-interface GridAutoResponsiveWrapperProps
+interface ResponsiveGridWrapperProps
   extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * How many columns should be in the grid at max.
@@ -129,8 +132,7 @@ interface GridAutoResponsiveWrapperProps
 /**
  * Think this as a div in grid.
  */
-interface GridAutoResponsiveItemProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface ResponsiveGridItemProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactElement
   /**
    * You must enter a min-width value for understand when resizing should stop.

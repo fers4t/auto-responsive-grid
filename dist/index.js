@@ -36,9 +36,9 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var _excluded = ["maxColumnCount", "minColumnCount", "children", "gap"],
-    _excluded2 = ["minWidth", "children"];
-function GridAutoResponsiveWrapper(props) {
+var _excluded = ["maxColumnCount", "minColumnCount", "children", "style", "gap"],
+    _excluded2 = ["minWidth", "children", "style"];
+function ResponsiveGridWrapper(props) {
   var maxColumnCount = props.maxColumnCount,
       _props$minColumnCount = props.minColumnCount,
       minColumnCount = _props$minColumnCount === void 0 ? 1 : _props$minColumnCount,
@@ -97,14 +97,15 @@ function GridAutoResponsiveWrapper(props) {
 
   return React__default.createElement("div", Object.assign({
     ref: wrapperRef,
-    style: {
+    style: _extends({
       display: 'grid',
       gridTemplateColumns: "repeat(" + currentRowCount + ", 1fr)",
-      gridGap: gap + 'px'
-    }
+      gridGap: gap + 'px',
+      width: '100%'
+    }, props.style)
   }, jsxAttributes), children);
 }
-function GridAutoResponsiveItem(props) {
+function ResponsiveGridItem(props) {
   var children = props.children,
       minWidth = props.minWidth;
   var child = React__default.Children.only(children);
@@ -116,14 +117,14 @@ function GridAutoResponsiveItem(props) {
   }(props);
 
   var singleGridElementWithMinWidth = React__default.cloneElement(child, _extends({
-    style: {
+    style: _extends({
       minWidth: minWidth + 'px',
       width: '100%'
-    }
+    }, props.children.props.style, props.style)
   }, jsxAttributes));
   return singleGridElementWithMinWidth;
 }
 
-exports.GridAutoResponsiveItem = GridAutoResponsiveItem;
-exports.GridAutoResponsiveWrapper = GridAutoResponsiveWrapper;
+exports.ResponsiveGridItem = ResponsiveGridItem;
+exports.ResponsiveGridWrapper = ResponsiveGridWrapper;
 //# sourceMappingURL=index.js.map

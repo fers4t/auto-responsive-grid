@@ -12,23 +12,23 @@ npm install --save auto-responsive-grid
 
 ```tsx
 import {
-  GridAutoResponsiveItem,
-  GridAutoResponsiveWrapper
+  ResponsiveGridItem,
+  ResponsiveGridWrapper
 } from 'auto-responsive-grid'
 
 export default function Page() {
   return (
     return (
     <div>
-      <GridAutoResponsiveWrapper maxColumnCount={4} gap={10}>
+      <ResponsiveGridWrapper maxColumnCount={4} gap={10}>
         {posts.map((post) => {
           return (
-            <GridAutoResponsiveItem minWidth={200}>
+            <ResponsiveGridItem minWidth={200}>
               <div>{post.title}</div>
-            </GridAutoResponsiveItem>
+            </ResponsiveGridItem>
           )
         })}
-      </GridAutoResponsiveWrapper>
+      </ResponsiveGridWrapper>
     </div>
   )
   )
